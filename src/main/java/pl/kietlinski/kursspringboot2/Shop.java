@@ -13,12 +13,10 @@ public abstract class Shop {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
 
-    @Value("${shop-info.vat}")
-    protected double vat;
-    @Value("${shop-info.discount}")
-    protected double discount;
     @Value("${shop-info.locale}")
     protected String locale;
+    @Value("${shop-info.owner}")
+    protected String owner;
 
     @Autowired
     protected ReloadableResourceBundleMessageSource source;
