@@ -2,7 +2,11 @@ package pl.kietlinski.kursspringboot2;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+@Schema(
+        description = "This is class Car"
+)
 public class Car {
 
     private long id;
