@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -63,7 +64,7 @@ public class CarController {
             summary = "Add new car to list"
     )
     @PostMapping
-    public ResponseEntity<Car> addCar(@RequestBody Car newCar) {
+    public ResponseEntity<Car> addCar(@Validated @RequestBody Car newCar) {
         newCar.setId(carList.size()+1);
         carList.add(newCar);
         Optional<Car> optionalCar = carList.stream().filter(car -> car.getId() == newCar.getId()).findFirst();
@@ -76,7 +77,7 @@ public class CarController {
             summary = "Modifu car by ID"
     )
     @PutMapping
-    public ResponseEntity<Car> modifyCar(@RequestBody Car newCar) {
+    public ResponseEntity<Car> modifyCar(@Validated @RequestBody Car newCar) {
         Optional<Car> optionalCar = carList.stream().filter(car1 -> car1.getId() == newCar.getId()).findFirst();
         if(optionalCar.isPresent()) {
             Car oldCar = optionalCar.get();
@@ -97,8 +98,8 @@ public class CarController {
         if(optionalCar.isPresent()) {
             Car oldCar = optionalCar.get();
             carList.remove(oldCar);
-            if(newCar.getMark() != null)
-                oldCar.setMark(newCar.getMark());
+            if(newCar.getBrand() != null)
+                oldCar.setBrand(newCar.getBrand());
             if(newCar.getModel() != null)
                 oldCar.setModel(newCar.getModel());
             if(newCar.getColor() != null)

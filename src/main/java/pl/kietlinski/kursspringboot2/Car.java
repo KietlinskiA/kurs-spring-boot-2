@@ -3,6 +3,8 @@ package pl.kietlinski.kursspringboot2;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Schema(
         description = "This is class Car"
@@ -10,22 +12,27 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class Car {
 
     private long id;
-    private String mark;
+    @NotNull(message = "Brand cannot be null")
+    @Size(min = 2, message = "Brand should be longer than 2 letters")
+    private String brand;
+    @NotNull(message = "Model cannot be null")
     private String model;
+    @NotNull(message = "Color cannot be null")
+    @Size(min = 2, message = "Color name should be longer than 2 letters")
     private String color;
 
-    public Car(long id, String mark, String model, String color) {
+    public Car(long id, String brand, String model, String color) {
         this.id = id;
-        this.mark = mark;
+        this.brand = brand;
         this.model = model;
         this.color = color;
     }
 
     @JsonCreator
-    public Car(@JsonProperty("mark") String mark,
+    public Car(@JsonProperty("mark") String brand,
                @JsonProperty("model") String model,
                @JsonProperty("color") String color) {
-        this.mark = mark;
+        this.brand = brand;
         this.model = model;
         this.color = color;
     }
@@ -38,12 +45,12 @@ public class Car {
         this.id = id;
     }
 
-    public String getMark() {
-        return mark;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setMark(String mark) {
-        this.mark = mark;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public String getModel() {
@@ -66,7 +73,7 @@ public class Car {
     public String toString() {
         return "Car{" +
                 "id=" + id +
-                ", mark='" + mark + '\'' +
+                ", mark='" + brand + '\'' +
                 ", model='" + model + '\'' +
                 ", color=" + color +
                 '}';
