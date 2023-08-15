@@ -19,6 +19,7 @@ import java.util.Optional;
         name = "Car Controller all CRUD API",
         description = "This is the class that implements all the CRUD api related to car menagement"
 )
+@CrossOrigin
 public class CarController {
 
     private CarService carService;
