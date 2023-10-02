@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -36,7 +37,8 @@ public class MainService {
 
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
     public Note getNoteById(Long toGetNoteId) {
-        Optional<Note> note = noteRepository.findById(toGetNoteId);
+        List<Note> noteList = noteRepository.findAll();
+        Optional<Note> note = noteList.stream().filter(element -> Objects.equals(element.getId(), toGetNoteId)).findFirst();
         return note.orElseGet(() -> {
             Note emptyNote = new Note("", "");
             emptyNote.setCreateDate(LocalDateTime.of(1990, 1, 1, 0, 0, 0));
